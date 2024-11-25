@@ -55,7 +55,7 @@ ROOT_URLCONF = 'monthly_challenges.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],   # we can explicitly put paths of the template directories here
+        'DIRS': [BASE_DIR / "templates"],   # we can explicitly put paths of the template directories here
         'APP_DIRS': True,   # it is true means django will look for templates in the app directories if the app is registered
         'OPTIONS': {
             'context_processors': [
