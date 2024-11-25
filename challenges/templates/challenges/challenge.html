@@ -6,6 +6,9 @@
 {% endblock page_title %}
 
 {% block content %}
+    {% comment %} including other html template into this html template {% endcomment %}
+    {% include "challenges/includes/header.html" %}
+
     {% comment %} using filter to capitalize the month name {% endcomment %}
     <h1>{{month_name|title}}'s Challenge</h1>
     {% if text is not None %}
