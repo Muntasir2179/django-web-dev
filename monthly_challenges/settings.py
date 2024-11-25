@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'challenges',   # this is how we register our created apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,8 +55,8 @@ ROOT_URLCONF = 'monthly_challenges.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [],   # we can explicitly put paths of the template directories here
+        'APP_DIRS': True,   # it is true means django will look for templates in the app directories if the app is registered
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
