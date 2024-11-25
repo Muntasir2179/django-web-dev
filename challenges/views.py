@@ -22,38 +22,19 @@ monthly_challenges = {
 
 
 def index(request):
-    list_items = ""
     months = list(monthly_challenges.keys())
-
-    for month in months:
-        capitalized_month = month.capitalize()
-        month_path = reverse("monthly_challenges", args=[month])
-        list_items += f"""<li><a href="{month_path}">{capitalized_month}</a></li>"""
-
-    # content = """
-    # <ul>
-    #     <li><a href="/challenges/january">January</a></li>
-    #     <li><a href="/challenges/february">February</a></li>
-    #     <li><a href="/challenges/march">March</a></li>
-    #     <li><a href="/challenges/april">April</a></li>
-    #     <li><a href="/challenges/may">May</a></li>
-    #     <li><a href="/challenges/june">June</a></li>
-    #     <li><a href="/challenges/july">July</a></li>
-    #     <li><a href="/challenges/august">August</a></li>
-    #     <li><a href="/challenges/september">September</a></li>
-    #     <li><a href="/challenges/october">October</a></li>
-    #     <li><a href="/challenges/november">November</a></li>
-    #     <li><a href="/challenges/december">December</a></li>
-    # </ul>
-    # """
-    return HttpResponse(list_items)
+    return render(request=request, template_name="challenges/index.html", context={"months": months})
 
 
 def monthly_challenge(request, month):
     try:
-        return render(request=request, template_name="challenges/challenge.html")
-        # response_data = render_to_string("challenges/challenge.html")
-        # return HttpResponse(response_data)
+        challenge_text = monthly_challenges[month]
+        return render(request=request,
+                      template_name="challenges/challenge.html", 
+                      context={
+                          "month_name": month,
+                          "text": challenge_text
+                      })
     except:
         return HttpResponseNotFound("<h1>This month is not supported.</h1>")
 
