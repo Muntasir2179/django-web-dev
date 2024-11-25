@@ -51,8 +51,9 @@ def index(request):
 
 def monthly_challenge(request, month):
     try:
-        response_data = render_to_string("challenges/challenge.html")
-        return HttpResponse(response_data)
+        return render(request=request, template_name="challenges/challenge.html")
+        # response_data = render_to_string("challenges/challenge.html")
+        # return HttpResponse(response_data)
     except:
         return HttpResponseNotFound("<h1>This month is not supported.</h1>")
 
