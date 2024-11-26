@@ -11,4 +11,4 @@ def posts(request):
 
 
 def post_detail(request, slug):
-    pass
+    return render(request=request, template_name="blog/post-detail.html")

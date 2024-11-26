@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static "blog/post-detail.css" %}">
+{% endblock css_files %}
+
+{% block title %}
+    This Post Title
+{% endblock title %}
+
+{% block content %}
+    <section id="summary">
+        <h2>Post Title</h2>
+        <article>
+            <img src="{% static "blog/images/mountains.jpg" %}" alt="Post Title">
+            <address>By Muntasir</address>
+            <div>
+                Last updated on <time>July 10th</time>
+            </div>
+        </article>
+    </section>
+
+    <main>
+        <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus quod neque quae dolores explicabo exercitationem, cum voluptatem sed voluptate numquam magnam tenetur perferendis labore aut? Nisi in velit quos dolorem?
+        </p>
+    </main>
+{% endblock content %}
