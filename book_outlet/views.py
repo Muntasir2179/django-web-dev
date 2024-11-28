@@ -10,13 +10,13 @@ def index(request):
     return render(request=request, template_name="book_outlet/index.html", context={"books": books})
 
 
-def book_details(request, id):
+def book_details(request, slug):
     # try:
     #     book = Book.objects.get(pk=id)
     # except:
     #     raise Http404()
     
-    book = get_object_or_404(Book, pk=id)   # this line of code performs the above try except logic
+    book = get_object_or_404(Book, slug=slug)   # this line of code performs the above try except logic
     return render(request=request, 
                   template_name="book_outlet/book_detail.html",
                   context={
