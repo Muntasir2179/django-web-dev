@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.urls import reverse
 
 # Create your models here.
 
@@ -16,3 +17,8 @@ class Book(models.Model):
 
     def __str__(self):
         return f"{self.title} ({self.rating})"
+    
+    # this method constructs the url that can be used to navigate the data
+    def get_absolute_url(self):
+        return reverse("book-detail", args=[self.id])
+    
