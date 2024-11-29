@@ -16,7 +16,7 @@ class Book(models.Model):
     )
     author = models.CharField(max_length=100, null=True)
     is_bestselling = models.BooleanField(default=False)
-    slug = models.SlugField(default="", null=False, db_index=True)  # Harry Porter 1 => harry-porter-1
+    slug = models.SlugField(default="", blank=True, null=False, db_index=True)  # Harry Porter 1 => harry-porter-1
 
     def __str__(self):
         return f"{self.title} ({self.rating})"
@@ -25,8 +25,8 @@ class Book(models.Model):
     def get_absolute_url(self):
         return reverse("book-detail", args=[self.slug])
     
-    # overriding save method for automatically populate slug field
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+    # # overriding save method for automatically populate slug field
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.title)
+    #     super().save(*args, **kwargs)
     
