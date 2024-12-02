@@ -1,20 +1,19 @@
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView, DeleteView, UpdateView
 
 from .forms import ReviewForm
 from .models import Review
 
 # Create your views here.
 
-class ReviewView(FormView):
-    form_class = ReviewForm   # modelform/form class to be used
+class ReviewView(CreateView):
+    """Use of this CreateView completely erases the use of forms. We can create and validate form using model class and also save the data into the database."""
+    model = Review    # model class to be used for creating form
+    fields = '__all__'   # list of the fields that are used in form
+    # form_class = ReviewForm   # modelform/form class to be used
     template_name = "reviews/review.html"   # template to render
     success_url = "/thank-you"  # url to redirect when successful form submission
-
-    def form_valid(self, form):   # what to do with form data
-        form.save()
-        return super().form_valid(form)
 
 
 class ThankYouView(TemplateView):
