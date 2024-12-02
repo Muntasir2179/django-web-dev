@@ -22,11 +22,6 @@ class ReviewView(View):
         return render(request=request, template_name="reviews/review.html", context={"form": form})
 
 
-# class ThankYouView(View):
-#     def get(self, request):
-#         return render(request=request, template_name="reviews/thank-you.html")
-
-
 class ThankYouView(TemplateView):
     template_name = "reviews/thank-you.html"
 
@@ -43,4 +38,15 @@ class ReviewListView(TemplateView):
         context = super().get_context_data(**kwargs)
         reviews = Review.objects.all()
         context["reviews"] = reviews
+        return context
+
+
+class SingleReviewView(TemplateView):
+    template_name = "reviews/single-review.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        review_id = kwargs['id']
+        selected_review = Review.objects.get(pk=review_id)
+        context['review'] = selected_review
         return context
