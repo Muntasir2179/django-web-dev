@@ -1,9 +1,12 @@
 from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from .forms import ReviewForm
 from django.views import View
 from django.views.generic.base import TemplateView
+from django.views.generic import ListView
+
+from .forms import ReviewForm
 from .models import Review
 
 # Create your views here.
@@ -31,14 +34,16 @@ class ThankYouView(TemplateView):
         return context
 
 
-class ReviewListView(TemplateView):
-    template_name = "reviews/reviews-list.html"
+class ReviewListView(ListView):
+    template_name = "reviews/reviews-list.html"   # template to render
+    model = Review   # model class to use for fetching data
+    context_object_name = "reviews"    # name of the context variable default name is "object_list"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        reviews = Review.objects.all()
-        context["reviews"] = reviews
-        return context
+    # # suppose we want to fetch data conditionally
+    # def get_queryset(self):
+    #     base_query = super().get_queryset()
+    #     data = base_query.filter(rating__gt=3)
+    #     return data
 
 
 class SingleReviewView(TemplateView):
