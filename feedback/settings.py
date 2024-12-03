@@ -127,3 +127,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # file upload settings
 MEDIA_ROOT = BASE_DIR / "uploads"   # this setting tells django to store all files into uploads folder, but in models FileField we can specify nested folder for separate file types
+MEDIA_URL = "/user-media/"    # it is the URL where the user can access the media files
