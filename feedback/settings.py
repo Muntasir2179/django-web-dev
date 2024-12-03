@@ -123,3 +123,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# file upload settings
+MEDIA_ROOT = BASE_DIR / "uploads"   # this setting tells django to store all files into uploads folder, but in models FileField we can specify nested folder for separate file types
