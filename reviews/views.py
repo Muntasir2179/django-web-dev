@@ -1,6 +1,8 @@
+from django.views import View
 from django.views.generic.base import TemplateView
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormView, CreateView, DeleteView, UpdateView
+from django.http import HttpResponseRedirect
 
 from .forms import ReviewForm
 from .models import Review
@@ -36,3 +38,20 @@ class SingleReviewView(DetailView):
     model = Review
     context_object_name = "review"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        loaded_review = self.object    # we can access the loaded object by using self.object
+        request = self.request
+        # favorite_id = request.session['favorite_review']   # this way of accessing session data can show a error if the data does not exists in the session
+        favorite_id = request.session.get('favorite_review')  # but in this way it will not show any error if the data is not exists in the session
+        # primitive data types like int, float, double are stored in session as string thats why we have to convert id that we get from model object to string for fair comparison.
+        # we can do opposite as well.
+        context['is_favorite'] = favorite_id == str(loaded_review.id)
+        return context
+
+
+class AddFavoriteView(View):
+    def post(self, request):
+        review_id = request.POST['review_id']
+        request.session['favorite_review'] = review_id
+        return HttpResponseRedirect('/reviews/' + review_id)
