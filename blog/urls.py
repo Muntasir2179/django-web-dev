@@ -3,9 +3,9 @@ from . import views
 
 
 urlpatterns = [
-    path("", view=views.starting_page, name="starting-page"),
-    path("post", view=views.posts, name="posts-page"),
-    path("post/<slug:slug>", view=views.post_detail, name="post-detail-page")
+    path("", view=views.StartingPageView.as_view(), name="starting-page"),
+    path("post", view=views.PostsView.as_view(), name="posts-page"),
+    path("post/<slug:slug>", view=views.SinglePostView.as_view(), name="post-detail-page")
 ]
 
 

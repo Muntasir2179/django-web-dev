@@ -67,6 +67,10 @@ main {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
+.tags {
+    margin-top: 2rem;
+}
+
 .tag {
     background-color: white;
     color: #390281;
