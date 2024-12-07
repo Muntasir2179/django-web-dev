@@ -1,4 +1,8 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView
+from django.views import View
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
 
 from .models import Post
 from .forms import CommentForm
@@ -24,13 +28,30 @@ class PostsView(ListView):
     context_object_name = "all_posts"
 
 
-class SinglePostView(DetailView):
-    model = Post
-    template_name = "blog/post-detail.html"
-    # context_object_name = "post"  # context_object_name is automatically set to post
+class SinglePostView(View):
+    def get(self, request, slug):
+        post = Post.objects.get(slug=slug)
+        context = {
+            "post": post,
+            "post_tags": post.tags.all(),
+            "comment_form": CommentForm()
+        }
+        return render(request=request, template_name="blog/post-detail.html", context=context)
+    
+    def post(self, request, slug):
+        comment_form = CommentForm(request.POST)
+        post = Post.objects.get(slug=slug)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['post_tags'] = self.object.tags.all()   # self.object holds the single Post model object
-        context['comment_form'] = CommentForm()
-        return context
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)   # by setting commit=False we are not hitting database instead we are creating a instance of a model
+            comment.post = post
+            comment.save()
+            return HttpResponseRedirect(reverse("post-detail-page", args=[slug]))
+        
+        context = {
+            "post": post,
+            "post_tags": post.tags.all(),
+            "comment_form": comment_form
+        }
+        return render(request=request, template_name="blog/post-detail.html", context=context)
+
