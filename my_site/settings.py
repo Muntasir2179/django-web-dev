@@ -118,6 +118,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+# This setting is used in production while serving static files. Because django does not allow access to the app specific static files, thus we have to set 
+# a different way to access those static files. It also helps us to prevent malicious JS file injection into our app specific folder where our static files lives.
+# Eventually it prevents overriding developer written Scripts with malicious Scripts.
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
